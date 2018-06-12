@@ -2,8 +2,21 @@ let restaurants,
   neighborhoods,
   cuisines
 var map
-var markers = []
-
+var markers = [];
+(function () {
+    if (!("serviceWorker in navigator")) {
+      console.log("service worker not supported");
+      return;
+    }
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(function (register) {
+        console.log('Registration successful, scope is:', register.scope);
+      })
+      .catch(function (error) {
+        console.log('ServiceWorker registration failed, error:', error);
+      });
+  }
+  ())
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
